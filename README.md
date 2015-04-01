@@ -26,5 +26,6 @@ document.body.appendChild(liveDOM);
 
 ### Todo
 
+* remove jQuery dependency (yep, I know)
 * add more events to listen on
 * possibly override `setTimeout` with a wrapper? audacious!

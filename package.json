@@ -1,0 +1,24 @@
+{
+  "name": "vdom-live",
+  "version": "0.1.0",
+  "description": "Render virtual DOM as an element and then keep updating it as interesting things (page events) happen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/unframework/vdom-live.git"
+  },
+  "keywords": [
+    "virtual",
+    "dom",
+    "loop"
+  ],
+  "author": "Nick Matantsev <nick.matantsev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unframework/vdom-live/issues"
+  },
+  "homepage": "https://github.com/unframework/vdom-live"
+}

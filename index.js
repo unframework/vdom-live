@@ -1,4 +1,3 @@
-var $ = require('jquery');
 var requestAnimationFrame = require('raf');
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');

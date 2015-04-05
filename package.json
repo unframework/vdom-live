@@ -1,6 +1,6 @@
 {
   "name": "vdom-live",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Render virtual DOM as an element and then keep updating it as interesting things (page events) happen",
   "main": "index.js",
   "scripts": {

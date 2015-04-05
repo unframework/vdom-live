@@ -4,6 +4,12 @@ var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
 
+// explicit method to trigger refresh
+// (may be using a private jQuery instance so must use it to trigger event)
+window.vdomLiveRefresh = function () {
+    $(window).trigger('vdomlive:refresh');
+};
+
 module.exports = function (render) {
     var cleanup = null;
 
@@ -29,10 +35,12 @@ module.exports = function (render) {
         }
     }
 
+    $(window).on('vdomlive:refresh', requestRedraw);
     $(window).on('hashchange', requestRedraw);
     $(document.body).on('click', requestRedraw);
 
     cleanup = function () {
+        $(window).off('vdomlive:refresh', requestRedraw);
         $(window).off('hashchange', requestRedraw);
         $(document.body).off('click', requestRedraw);
     };

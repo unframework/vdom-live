@@ -3,6 +3,7 @@ var requestAnimationFrame = require('raf');
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
+var h = require('virtual-dom/h');
 
 // explicit method to trigger refresh
 // (may be using a private jQuery instance so must use it to trigger event)
@@ -13,7 +14,7 @@ window.vdomLiveRefresh = function () {
 module.exports = function (render) {
     var cleanup = null;
 
-    var tree = render();
+    var tree = render(h);
     var rootNode = createElement(tree);
 
     var redrawId = null;
@@ -28,7 +29,7 @@ module.exports = function (render) {
             redrawId = requestAnimationFrame(function () {
                 redrawId = null;
 
-                var newTree = render();
+                var newTree = render(h);
                 patch(rootNode, diff(tree, newTree));
                 tree = newTree;
             });

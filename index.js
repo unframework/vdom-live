@@ -11,40 +11,44 @@ window.vdomLiveRefresh = function () {
     $(window).trigger('vdomlive:refresh');
 };
 
-module.exports = function (render) {
-    var cleanup = null;
+module.exports = function (zoneCode) {
+    var factory = function (render) {
+        var cleanup = null;
 
-    var tree = render(h);
-    var rootNode = createElement(tree);
+        var tree = render(h);
+        var rootNode = createElement(tree);
 
-    var redrawId = null;
+        var redrawId = null;
 
-    function requestRedraw() {
-        if (!rootNode.parentNode) {
-            cleanup();
-            return;
+        function requestRedraw() {
+            if (!rootNode.parentNode) {
+                cleanup();
+                return;
+            }
+
+            if (redrawId === null) {
+                redrawId = requestAnimationFrame(function () {
+                    redrawId = null;
+
+                    var newTree = render(h);
+                    patch(rootNode, diff(tree, newTree));
+                    tree = newTree;
+                });
+            }
         }
 
-        if (redrawId === null) {
-            redrawId = requestAnimationFrame(function () {
-                redrawId = null;
+        $(window).on('vdomlive:refresh', requestRedraw);
+        $(window).on('hashchange', requestRedraw);
+        $(document.body).on('click', requestRedraw);
 
-                var newTree = render(h);
-                patch(rootNode, diff(tree, newTree));
-                tree = newTree;
-            });
-        }
-    }
+        cleanup = function () {
+            $(window).off('vdomlive:refresh', requestRedraw);
+            $(window).off('hashchange', requestRedraw);
+            $(document.body).off('click', requestRedraw);
+        };
 
-    $(window).on('vdomlive:refresh', requestRedraw);
-    $(window).on('hashchange', requestRedraw);
-    $(document.body).on('click', requestRedraw);
-
-    cleanup = function () {
-        $(window).off('vdomlive:refresh', requestRedraw);
-        $(window).off('hashchange', requestRedraw);
-        $(document.body).off('click', requestRedraw);
+        return rootNode;
     };
 
-    return rootNode;
+    zoneCode(factory);
 };

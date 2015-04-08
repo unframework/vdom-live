@@ -5,12 +5,6 @@ var createElement = require('virtual-dom/create-element');
 var h = require('virtual-dom/h');
 var zoneWrapper = require('zone.js');
 
-// explicit method to trigger refresh
-// (may be using a private jQuery instance so must use it to trigger event)
-window.vdomLiveRefresh = function () {
-    // @todo get rid of this?
-};
-
 module.exports = function (zoneCode) {
     var redrawList = [];
 

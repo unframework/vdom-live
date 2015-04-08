@@ -12,20 +12,22 @@ Render virtual DOM as an element and then keep updating it as interesting things
 
 Uses `requestAnimationFrame` to queue and debounce re-renders. Cleans up event listeners when root element is removed from the document tree.
 
-```js
-var renderLive = require('vdom-live');
+Relying on the [Angular Zone.js](https://github.com/angular/zone.js) library to detect incoming page and network events. Anything that runs inside the `vdomLive` wrapper will get incoming asynchronous events and timeouts picked up and triggering a redraw on the next animation frame.
 
-var liveDOM = renderLive(function () {
-    return h('span', new Date().toString());
+```js
+var vdomLive = require('vdom-live');
+
+vdomLive(function (renderLive) {
+    var liveDOM = renderLive(function () {
+        return h('span', new Date().toString());
+    });
+
+    document.body.appendChild(liveDOM);
 });
 
-document.body.appendChild(liveDOM);
-
-// ... and then let the user click something/etc
+// ... and then let the user click something/receive AJAX/etc
 ```
 
 ### Todo
 
-* remove jQuery dependency (yep, I know)
-* add more events to listen on
-* possibly override `setTimeout` with a wrapper? audacious!
+* keep investigating other ways to detect interesting events

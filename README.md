@@ -1,7 +1,7 @@
 Virtual DOM Live
 ----------------
 
-Render virtual DOM as an element and then keep updating it as interesting things (page events) happen.
+Render [virtual DOM](https://github.com/Matt-Esch/virtual-dom) as an element and then keep updating it as interesting things (page events) happen.
 
 * bye-bye application state change tracking, observables, digest loops, watches
     * or something
@@ -18,7 +18,7 @@ Relying on the [Angular Zone.js](https://github.com/angular/zone.js) library to 
 var vdomLive = require('vdom-live');
 
 vdomLive(function (renderLive) {
-    var liveDOM = renderLive(function () {
+    var liveDOM = renderLive(function (h) {
         return h('span', new Date().toString());
     });
 

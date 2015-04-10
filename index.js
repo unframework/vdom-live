@@ -7,9 +7,10 @@ var zoneWrapper = require('zone.js-tmp-browserify');
 
 module.exports = function (zoneCode) {
     var redrawList = [];
+    var isRendering = false;
 
     var factory = function (render) {
-        var tree = render(h);
+        var tree = render(h); // @todo this is assumed to run inside the zone, but ensure that somehow
         var rootNode = createElement(tree);
 
         var redrawId = null;
@@ -25,9 +26,16 @@ module.exports = function (zoneCode) {
                         return;
                     }
 
-                    var newTree = render(h);
-                    patch(rootNode, diff(tree, newTree));
-                    tree = newTree;
+                    // ensure entire patch operation is done within the zone run for proper handler attachment
+                    isRendering = true; // avoid triggering a re-render
+
+                    currentZone.run(function () {
+                        var newTree = render(h);
+                        patch(rootNode, diff(tree, newTree));
+                        tree = newTree;
+                    });
+
+                    isRendering = false;
                 });
             }
         }
@@ -40,7 +48,7 @@ module.exports = function (zoneCode) {
     var currentZoneIsInitialized = false;
     var currentZone = zoneWrapper.zone.fork({
         afterTask: function () {
-            if (currentZoneIsInitialized) {
+            if (currentZoneIsInitialized && !isRendering) {
                 redrawList.forEach(function (hook) { hook(); });
             }
         }

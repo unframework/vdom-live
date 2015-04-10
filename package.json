@@ -1,6 +1,6 @@
 {
   "name": "vdom-live",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Render virtual DOM as an element and then keep updating it as interesting things (page events) happen",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,6 @@
   "dependencies": {
     "raf": "^2.0.4",
     "virtual-dom": "^2.0.1",
-    "zone.js-tmp-browserify": "^0.4.2-tmp-browserify"
+    "zone.js": "git://github.com/unframework/zone.js.git#e0f2d54"
   }
 }

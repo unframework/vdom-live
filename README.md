@@ -3,6 +3,8 @@ Virtual DOM Live
 
 Render [virtual DOM](https://github.com/Matt-Esch/virtual-dom) as an element and then keep updating it as interesting things (page events) happen.
 
+[Live demo on RequireBin!](http://requirebin.com/?gist=41d87350052e03ba6ebb)
+
 * bye-bye application state change tracking, observables, digest loops, watches
     * or something
 * great for

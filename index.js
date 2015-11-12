@@ -55,7 +55,7 @@ module.exports = function (zoneCode) {
     });
 
     currentZone.run(function () {
-        zoneCode(factory);
+        zoneCode(factory, h);
     });
 
     currentZoneIsInitialized = true;

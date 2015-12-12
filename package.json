@@ -28,6 +28,6 @@
   "dependencies": {
     "raf": "^2.0.4",
     "virtual-dom": "^2.0.1",
-    "zone.js": "git://github.com/unframework/zone.js.git#e0f2d54"
+    "zone.js": "^0.5.10"
   }
 }

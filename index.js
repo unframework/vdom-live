@@ -3,7 +3,9 @@ var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
 var h = require('virtual-dom/h');
-var zoneWrapper = require('zone.js');
+var Zone = require('zone.js').Zone;
+
+var zone = new Zone();
 
 module.exports = function (zoneCode) {
     var redrawList = [];
@@ -46,7 +48,7 @@ module.exports = function (zoneCode) {
     };
 
     var currentZoneIsInitialized = false;
-    var currentZone = zoneWrapper.zone.fork({
+    var currentZone = zone.fork({
         afterTask: function () {
             if (currentZoneIsInitialized && !isRendering) {
                 redrawList.forEach(function (hook) { hook(); });

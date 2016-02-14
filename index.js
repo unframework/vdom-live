@@ -36,7 +36,10 @@ module.exports = function (zoneCode) {
 
                     currentZone.run(function () {
                         var newTree = render(h);
-                        patch(rootNode, diff(tree, newTree));
+
+                        // save new root node (may be replaced during patch)
+                        rootNode = patch(rootNode, diff(tree, newTree));
+
                         tree = newTree;
                     });
 

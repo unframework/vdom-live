@@ -1,9 +1,12 @@
 Virtual DOM Live
 ----------------
 
-Render [virtual DOM](https://github.com/Matt-Esch/virtual-dom) as an element and then keep updating it as interesting things (page events) happen.
+Render [virtual DOM](https://github.com/Matt-Esch/virtual-dom) as an element and then keep updating it as interesting things (page events) happen, without observables.
 
-[Live demo on RequireBin!](http://requirebin.com/?gist=41d87350052e03ba6ebb)
+- [NPM package](https://www.npmjs.com/package/vdom-live)
+- [Live demo on RequireBin!](http://requirebin.com/?gist=41d87350052e03ba6ebb)
+
+Motivation:
 
 * bye-bye application state change tracking, observables, digest loops, watches
     * or something
